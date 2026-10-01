@@ -1,0 +1,77 @@
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;800&display=swap" rel="stylesheet">
+
+<section class="projects-counter-section">
+  <div class="counter-card">
+    <div class="counter-number" id="experienceCounter">۰</div>
+    <div class="counter-label">سال‌های تجربه</div>
+  </div>
+</section>
+
+<style>
+  .projects-counter-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    background-color: #ffffff;
+  }
+
+  .counter-card {
+    background: #002c60;
+    border-radius: 16px;
+    padding: 48px 72px;
+    text-align: center;
+    box-shadow:
+      0 2px 4px rgba(54,81,136,0.08),
+      0 8px 20px rgba(54,81,136,0.18),
+      0 24px 481;
+    direction,0.14);
+    min-width: 240px;
+  }
+
+  .counter-number {
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    direction: ltr;
+    font-family: 'Vazirmatn', Tahoma, sans-serif;
+  }
+
+  .counter-label {
+    margin-top: 14px;
+    font-size: 1.15rem;
+    color: #ffffff;
+    font-weight: 600;
+    font-family: 'Vazirmatn', Tahoma, sans-serif;
+  }
+</style>
+
+<script>
+  function toFarsiNum(n) {
+    return String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+  }
+
+  function animateCounter(el, target, duration) {
+    let startTime = null;
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = toFarsiNum(Math.floor(eased * target));
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = toFarsiNum(target);
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      var el = document.getElementById('experienceCounter');
+      if (el) animateCounter(el, 9, 3500);
+    }, 500);
+  });
+</script>
